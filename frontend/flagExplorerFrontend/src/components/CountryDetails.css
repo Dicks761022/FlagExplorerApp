@@ -1,0 +1,51 @@
+
+
+.country-details-container {
+
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  width: 100%;
+}
+
+.country-details {
+  margin-left: 180px;
+  cursor: default; /* Remove cursor pointer for single card view */
+  border: 1px solid #ddd;
+  padding: 25px; 
+  border-radius: 12px; 
+  text-align: center;
+  max-width: 100%; /* Allow card to adapt to container's width */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow for focus */
+  background-color: #f0f0f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.03s ease;
+  opacity: 1; /* Make sure it's visible right away */
+
+}
+  /* Flag styling inside the card */
+ .flag {
+  width: 100%; /* Flag should take full width of the card */
+  max-width: 250px; /* Max-width for flag */
+  height: 150px; /* Set flag height */
+  object-fit: cover; /* Make flag fit the container */
+  border-radius: 8px; /* Round the corners of the flag */
+  margin-bottom: 15px; /* Margin below the flag */
+}
+ 
+  
+  .country-details h2{
+    font-size: 2rem;
+    margin: 15px 0;
+    color: #333;
+    transform: color 0.3s ease;
+  }
+
+  .country-details p{
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color :#555;
+  }
+
+  .country-details strong{
+    color: #333;
+  }
