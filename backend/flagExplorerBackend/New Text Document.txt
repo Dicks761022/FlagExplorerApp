@@ -1,0 +1,673 @@
+definitions: 
+  name: 
+    type: object
+    properties: 
+      common: 
+        type: string
+        example: South Georgia
+      official: 
+        type: string
+        example: South Georgia and the South Sandwich Islands
+      nativeName: 
+        type: object
+        properties: 
+          eng: 
+            type: object
+            properties: 
+              official: 
+                type: string
+                example: South Georgia and the South Sandwich Islands
+              common: 
+                type: string
+                example: South Georgia
+  tld: 
+    type: array
+    items: 
+      type: object
+      properties: 
+        0: 
+          type: string
+          example: .
+        1: 
+          type: string
+          example: g
+        2: 
+          type: string
+          example: s
+    example: [
+      .gs
+    ]
+  cca2: 
+    type: string
+    example: GS
+  ccn3: 
+    type: string
+    example: 239
+  cca3: 
+    type: string
+    example: SGS
+  independent: 
+    type: boolean
+  status: 
+    type: string
+    example: officially-assigned
+  unMember: 
+    type: boolean
+  currencies: 
+    type: object
+    properties: 
+      SHP: 
+        type: object
+        properties: 
+          name: 
+            type: string
+            example: Saint Helena pound
+          symbol: 
+            type: string
+            example: £
+  idd: 
+    type: object
+    properties: 
+      root: 
+        type: string
+        example: +5
+      suffixes: 
+        type: array
+        items: 
+          type: object
+          properties: 
+            0: 
+              type: string
+              example: 0
+            1: 
+              type: string
+              example: 0
+        example: [
+          00
+        ]
+  capital: 
+    type: array
+    items: 
+      type: object
+      properties: 
+        0: 
+          type: string
+          example: K
+        1: 
+          type: string
+          example: i
+        2: 
+          type: string
+          example: n
+        3: 
+          type: string
+          example: g
+        4: 
+          type: string
+          example:  
+        5: 
+          type: string
+          example: E
+        6: 
+          type: string
+          example: d
+        7: 
+          type: string
+          example: w
+        8: 
+          type: string
+          example: a
+        9: 
+          type: string
+          example: r
+        10: 
+          type: string
+          example: d
+        11: 
+          type: string
+          example:  
+        12: 
+          type: string
+          example: P
+        13: 
+          type: string
+          example: o
+        14: 
+          type: string
+          example: i
+        15: 
+          type: string
+          example: n
+        16: 
+          type: string
+          example: t
+    example: [
+      King Edward Point
+    ]
+  altSpellings: 
+    type: array
+    items: 
+      type: object
+      properties: 
+        0: 
+          type: string
+          example: G
+        1: 
+          type: string
+          example: S
+        2: 
+          type: string
+          example: u
+        3: 
+          type: string
+          example: t
+        4: 
+          type: string
+          example: h
+        5: 
+          type: string
+          example:  
+        6: 
+          type: string
+          example: G
+        7: 
+          type: string
+          example: e
+        8: 
+          type: string
+          example: o
+        9: 
+          type: string
+          example: r
+        10: 
+          type: string
+          example: g
+        11: 
+          type: string
+          example: i
+        12: 
+          type: string
+          example: a
+        13: 
+          type: string
+          example:  
+        14: 
+          type: string
+          example: a
+        15: 
+          type: string
+          example: n
+        16: 
+          type: string
+          example: d
+        17: 
+          type: string
+          example:  
+        18: 
+          type: string
+          example: t
+        19: 
+          type: string
+          example: h
+        20: 
+          type: string
+          example: e
+        21: 
+          type: string
+          example:  
+        22: 
+          type: string
+          example: S
+        23: 
+          type: string
+          example: o
+        24: 
+          type: string
+          example: u
+        25: 
+          type: string
+          example: t
+        26: 
+          type: string
+          example: h
+        27: 
+          type: string
+          example:  
+        28: 
+          type: string
+          example: S
+        29: 
+          type: string
+          example: a
+        30: 
+          type: string
+          example: n
+        31: 
+          type: string
+          example: d
+        32: 
+          type: string
+          example: w
+        33: 
+          type: string
+          example: i
+        34: 
+          type: string
+          example: c
+        35: 
+          type: string
+          example: h
+        36: 
+          type: string
+          example:  
+        37: 
+          type: string
+          example: I
+        38: 
+          type: string
+          example: s
+        39: 
+          type: string
+          example: l
+        40: 
+          type: string
+          example: a
+        41: 
+          type: string
+          example: n
+        42: 
+          type: string
+          example: d
+        43: 
+          type: string
+          example: s
+    example: [
+      GS
+      South Georgia and the South Sandwich Islands
+    ]
+  region: 
+    type: string
+    example: Antarctic
+  languages: 
+    type: object
+    properties: 
+      eng: 
+        type: string
+        example: English
+  translations: 
+    type: object
+    properties: 
+      ara: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: جورجيا الجنوبية وجزر ساندوتش الجنوبية
+          common: 
+            type: string
+            example: جورجيا الجنوبية
+      bre: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Georgia ar Su hag Inizi Sandwich ar Su
+          common: 
+            type: string
+            example: Georgia ar Su hag Inizi Sandwich ar Su
+      ces: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Jižní Georgie a Jižní Sandwichovy ostrovy
+          common: 
+            type: string
+            example: Jižní Georgie a Jižní Sandwichovy ostrovy
+      cym: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: South Georgia and the South Sandwich Islands
+          common: 
+            type: string
+            example: South Georgia
+      deu: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Südgeorgien und die Südlichen Sandwichinseln
+          common: 
+            type: string
+            example: Südgeorgien und die Südlichen Sandwichinseln
+      est: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Lõuna-Georgia ja Lõuna-Sandwichi saared
+          common: 
+            type: string
+            example: Lõuna-Georgia ja Lõuna-Sandwichi saared
+      fin: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Etelä-Georgia ja Eteläiset Sandwichsaaret
+          common: 
+            type: string
+            example: Etelä-Georgia ja Eteläiset Sandwichsaaret
+      fra: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Géorgie du Sud et les îles Sandwich du Sud
+          common: 
+            type: string
+            example: Géorgie du Sud-et-les Îles Sandwich du Sud
+      hrv: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Južna Džordžija i Otoci Južni Sendvič
+          common: 
+            type: string
+            example: Južna Georgija i otočje Južni Sandwich
+      hun: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Déli-Georgia és Déli-Sandwich-szigetek
+          common: 
+            type: string
+            example: Déli-Georgia és Déli-Sandwich-szigetek
+      ita: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Georgia del Sud e isole Sandwich del Sud
+          common: 
+            type: string
+            example: Georgia del Sud e Isole Sandwich Meridionali
+      jpn: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: サウスジョージア·サウスサンドウィッチ諸島
+          common: 
+            type: string
+            example: サウスジョージア・サウスサンドウィッチ諸島
+      kor: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: 조지아
+          common: 
+            type: string
+            example: 조지아
+      nld: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Zuid-Georgië en de Zuidelijke Sandwich-eilanden
+          common: 
+            type: string
+            example: Zuid-Georgia en Zuidelijke Sandwicheilanden
+      per: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: جزایر جورجیای جنوبی و ساندویچ جنوبی
+          common: 
+            type: string
+            example: جزایر جورجیای جنوبی و ساندویچ جنوبی
+      pol: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Georgia Południowa i Sandwich Południowy
+          common: 
+            type: string
+            example: Georgia Południowa i Sandwich Południowy
+      por: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Geórgia do Sul e Sandwich do Sul
+          common: 
+            type: string
+            example: Ilhas Geórgia do Sul e Sandwich do Sul
+      rus: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Южная Георгия и Южные Сандвичевы острова
+          common: 
+            type: string
+            example: Южная Георгия и Южные Сандвичевы острова
+      slk: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Južná Georgia a Južné Sandwichove ostrovy
+          common: 
+            type: string
+            example: Južná Georgia a Južné Sandwichove ostrovy
+      spa: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Georgia del Sur y las Islas Sandwich del Sur
+          common: 
+            type: string
+            example: Islas Georgias del Sur y Sandwich del Sur
+      srp: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Јужна Џорџија и Јужна Сендвичка Острва
+          common: 
+            type: string
+            example: Јужна Џорџија и Јужна Сендвичка Острва
+      swe: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Sydgeorgien
+          common: 
+            type: string
+            example: Sydgeorgien
+      tur: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: Güney Georgia ve Güney Sandwich Adaları
+          common: 
+            type: string
+            example: Güney Georgia ve Güney Sandwich Adaları
+      urd: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: جنوبی جارجیا و جزائر جنوبی سینڈوچ
+          common: 
+            type: string
+            example: جنوبی جارجیا
+      zho: 
+        type: object
+        properties: 
+          official: 
+            type: string
+            example: 南乔治亚岛和南桑威奇群岛
+          common: 
+            type: string
+            example: 南乔治亚
+  latlng: 
+    type: array
+    items: 
+      type: object
+      properties:  
+    example: []
+  landlocked: 
+    type: boolean
+  area: 
+    type: integer
+    format: int32
+    example: 3903
+  demonyms: 
+    type: object
+    properties: 
+      eng: 
+        type: object
+        properties: 
+          f: 
+            type: string
+            example: South Georgian South Sandwich Islander
+          m: 
+            type: string
+            example: South Georgian South Sandwich Islander
+  flag: 
+    type: string
+    example: 🇬🇸
+  maps: 
+    type: object
+    properties: 
+      googleMaps: 
+        type: string
+        example: https://goo.gl/maps/mJzdaBwKBbm2B81q9
+      openStreetMaps: 
+        type: string
+        example: https://www.openstreetmap.org/relation/1983629
+  population: 
+    type: integer
+    format: int32
+    example: 30
+  car: 
+    type: object
+    properties: 
+      signs: 
+        type: array
+        items: 
+          type: object
+          properties:  
+        example: []
+      side: 
+        type: string
+        example: right
+  timezones: 
+    type: array
+    items: 
+      type: object
+      properties: 
+        0: 
+          type: string
+          example: U
+        1: 
+          type: string
+          example: T
+        2: 
+          type: string
+          example: C
+        3: 
+          type: string
+          example: -
+        4: 
+          type: string
+          example: 0
+        5: 
+          type: string
+          example: 2
+        6: 
+          type: string
+          example: :
+        7: 
+          type: string
+          example: 0
+        8: 
+          type: string
+          example: 0
+    example: [
+      UTC-02:00
+    ]
+  continents: 
+    type: array
+    items: 
+      type: object
+      properties: 
+        0: 
+          type: string
+          example: A
+        1: 
+          type: string
+          example: n
+        2: 
+          type: string
+          example: t
+        3: 
+          type: string
+          example: a
+        4: 
+          type: string
+          example: r
+        5: 
+          type: string
+          example: c
+        6: 
+          type: string
+          example: t
+        7: 
+          type: string
+          example: i
+        8: 
+          type: string
+          example: c
+        9: 
+          type: string
+          example: a
+    example: [
+      Antarctica
+    ]
+  flags: 
+    type: object
+    properties: 
+      png: 
+        type: string
+        example: https://flagcdn.com/w320/gs.png
+      svg: 
+        type: string
+        example: https://flagcdn.com/gs.svg
+  coatOfArms: 
+    type: object
+    properties:  
+  startOfWeek: 
+    type: string
+    example: monday
+  capitalInfo: 
+    type: object
+    properties: 
+      latlng: 
+        type: array
+        items: 
+          type: object
+          properties:  
+        example: []
