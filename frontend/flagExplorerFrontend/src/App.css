@@ -1,9 +1,8 @@
 .app{
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 400px;
-  background: url("./assets/home-background.jpg") no-repeat center;
+  padding: 20px;
   background-size: cover;
   min-height: 100vh;
-  color: #fff;
+  color: #000000;
 }

@@ -1,0 +1,39 @@
+.country-grid{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center ;
+  gap: 20px;
+
+}
+.country-card {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .country-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .flag {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .country-details {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+  }
+  
+  .country-details h2 {
+    margin-bottom: 10px;
+  }
+  
+  .country-details p {
+    margin: 5px 0;
+  }
+  
