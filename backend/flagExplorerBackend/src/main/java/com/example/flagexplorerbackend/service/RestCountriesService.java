@@ -21,17 +21,14 @@ public class RestCountriesService {
     }
 
     public List<Map<String, Object>> getCountryAttributes() {
-        // Fetch raw JSON string from WebClient
         String jsonResponse = webClient.get()
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
 
         try {
-            // Parse JSON into a list of generic objects
             List<Map<String, Object>> countries = objectMapper.readValue(jsonResponse, new TypeReference<>() {});
 
-            // Extract specific attributes (common name, capital, flag) into a new list of maps
             return countries.stream()
                     .map(country -> Map.of(
                             "commonName", ((Map<?, ?>) country.get("name")).get("common"),
@@ -50,9 +47,9 @@ public class RestCountriesService {
 
     private String getFirstElementOrDefault(List<?> list, String defaultValue) {
         if (list != null && !list.isEmpty()) {
-            return list.get(0).toString(); // Return the first element of the list
+            return list.get(0).toString();
         }
-        return defaultValue; // Return "Unknown" if the list is null or empty
+        return defaultValue;
     }
 
 

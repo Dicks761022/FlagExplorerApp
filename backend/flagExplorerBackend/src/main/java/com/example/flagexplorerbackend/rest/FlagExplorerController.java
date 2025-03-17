@@ -6,30 +6,51 @@ import com.baeldung.openapi.model.CountryDetails;
 import com.example.flagexplorerbackend.service.RestCountriesService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.NativeWebRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
-public class FlagExplorerController implements CountriesApiDelegate {
+public class FlagExplorerController {
 
-    public RestCountriesService restCountriesService;
+    private RestCountriesService restCountriesService;
 
     public FlagExplorerController(RestCountriesService restCountriesService) {
         this.restCountriesService = restCountriesService;
     }
 
-    @Override
+    @GetMapping("/countries")
     public ResponseEntity<List<Country>> countriesGet() {
-        return CountriesApiDelegate.super.countriesGet();
+        List<Map<String, Object>> list = restCountriesService.getCountryAttributes();
+
+        List<Country> listOfCountries = new ArrayList<>();
+
+        for (Map<String, Object> country : list) {
+            Country c = new Country();
+            c.setName(country.get("commonName").toString());
+            c.setFlag(country.get("flagUrl").toString());
+            listOfCountries.add(c);
+        }
+
+        return ResponseEntity.ok(listOfCountries);
     }
 
-    @Override
-    public ResponseEntity<CountryDetails> countriesNameGet(String name) {
-        return CountriesApiDelegate.super.countriesNameGet(name);
+    @GetMapping("/countries/{name}")
+    public ResponseEntity<CountryDetails> countriesNameGet(@PathVariable String name) {
+        List<Map<String, Object>> list = restCountriesService.getCountryAttributes();
+
+        CountryDetails countryDetails = new CountryDetails();
+
+        list.stream().filter(country -> country.get("commonName").equals(name)).findFirst().ifPresent(country -> {
+            countryDetails.setName((String) country.get("commonName"));
+            countryDetails.setFlag((String) country.get("flagUrl"));
+            countryDetails.setCapital((String) country.get("capital"));
+            countryDetails.setPopulation((Integer) country.get("population"));
+        });
+
+        return ResponseEntity.ok(countryDetails);
     }
 }
