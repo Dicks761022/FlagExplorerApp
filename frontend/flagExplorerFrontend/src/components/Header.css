@@ -26,6 +26,10 @@
    
     animation: fadeIn 1.5s ease-in-out; /* Animation on heading */
     margin-bottom: 1rem;
+    font-family: "Spicy Rice", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 5rem;
 }
 
 .map{
@@ -45,6 +49,8 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+
 
 .search-filter-container {
     display: flex;
