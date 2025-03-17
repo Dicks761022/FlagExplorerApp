@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CountryGrid from '../components/CountryGrid';
-import SearchBar from '../components/SearchBar';
-import FilterFlags from '../components/FilterFlags';
+import Header from '../components/Header';
 
 const API_URL = "https://restcountries.com/v3.1/all";
 
@@ -37,10 +36,9 @@ function Home({ countries, onCountryClick }) {
 
   return (
     <div className="home">
-        <h1>Welcome to Flag Explorer</h1>
-        <p>Discover the world, one flag at a time. Dive into a colorful journey and learn more about countries from every corner of the globe.Whether you're curious about the population, the name, or the flag of a country, our easy-to-use platform lets you search, filter, and explore. Ready to explore? Start by searching for a flag or selecting a region, and uncover the fascinating details behind each nation!</p>
-      <SearchBar setSearchFlag={setSearchFlag} />
-      <FilterFlags onSelect={setSelectedRegion} />
+      {/* Header component containing the text, search bar, and filter */}
+      <Header setSearchFlag={setSearchFlag} setSelectedRegion={setSelectedRegion} />
+      
       {/* Pass filtered countries to CountryGrid */}
       <CountryGrid countries={filteredCountries} onCountryClick={onCountryClick} />
     </div>

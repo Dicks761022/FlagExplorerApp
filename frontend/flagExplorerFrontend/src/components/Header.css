@@ -1,0 +1,65 @@
+.home-header {
+    display: flex; /* Flexbox for side-by-side layout */
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e9f4ff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    text-align: center;
+    height: 500px; /* Adjust the height to fit the content */
+    margin-bottom: 20px;
+  }
+
+
+  /* Increase spacing between text and globe */
+.home-header .header-text {
+    flex: 1; /* Allow the text to take up the left side */
+    padding-right: 2rem;
+   
+  }
+
+
+/* Animation for heading */
+.home-header h1 {
+   
+    animation: fadeIn 1.5s ease-in-out; /* Animation on heading */
+    margin-bottom: 1rem;
+}
+
+.map{
+    width: 600px; /* Adjust size of the globe */
+    height: 600px;
+    background-image: url('../assets/map.svg'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.home-header p {
+    font-size: 1.25rem;
+    color: #000000;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+/* Add a fade-in animation to the heading */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
