@@ -7,7 +7,7 @@ The Flag Explorer website allows users to see details about countries such as po
 - **React** - Used for front-end
 - **OpenAPI** - Used for API specification
 
-This project makes use of the RestCountries API found here [https://restcountries.com/] 
+This project makes use of the [RestCountries](https://restcountries.com) API found here . This project does not make use of a database.
 
 ## CI/CD
 This project makes use of GitHub's CI/CD pipeline technologies. Using YAML files I've defined the CI/CD processes
