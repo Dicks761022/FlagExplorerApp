@@ -37,7 +37,6 @@ public class RestCountriesService {
                             "population", country.getOrDefault("population", 0),
                             "region", country.getOrDefault("region", "Unknown")
 
-
                     ))
                     .collect(Collectors.toList());
 
