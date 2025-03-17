@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import "../components/Header.css"
 
 function FilterFlags({ onSelect }) {
   const regions = [
@@ -8,8 +9,8 @@ function FilterFlags({ onSelect }) {
     { id: 3, name: "Europe" },
     { id: 4, name: "North America" },
     { id: 5, name: "South America" },
-    { id: 6, name: "Australia" },
-    { id: 7, name: "Antarctica" }
+   
+  
   ];
 
   // Update selectHandler to handle regions
@@ -19,7 +20,7 @@ function FilterFlags({ onSelect }) {
   };
 
   return (
-    <select onChange={selectHandler}>
+    <select className='filter' onChange={selectHandler}>
       <option value="all">Filter by region</option> {/* Default value */}
       {regions.map((region) => (
         <option key={region.id} value={region.name}>

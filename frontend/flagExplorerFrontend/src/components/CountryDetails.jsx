@@ -4,13 +4,16 @@ import './CountryDetails.css';
 function CountryDetails({ country }) {
  
 // Check if country is properly passed as prop
-if (!country) return <div>No country data available</div>;
+if (!country) return <div></div>;
 
   return (
     
 <div className="country-details-container">
+<h1 className="details-heading">Country Details</h1> {/* Added Heading */}
+
     <div className="country-details">
-      <h2>{country.name}</h2>
+      
+      <h1 className='heading-country-details'>{country.name}</h1>
       <p><strong>Population:</strong> {country.population.toLocaleString()}</p>
       <p><strong>Capital:</strong> {country.capital }</p>
     

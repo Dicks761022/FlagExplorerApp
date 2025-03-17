@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Home from './pages/Home';
 import Details from './pages/Details';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
 const API_URL = "http://localhost:8080/countries";
 
@@ -29,7 +29,7 @@ function App() {
   };
 
   return (
-    <Router>
+  
       <div className="app">
         {loading && <p>Loading countries...</p>}
         {error && <p style={{ color: 'red' }}>Error: {error}</p>}
@@ -47,7 +47,7 @@ function App() {
           />
         </Routes>
       </div>
-    </Router>
+  
   );
 }
 

@@ -37,12 +37,13 @@ function Details() {
     navigate(-1);
   };
 
-  if (loading) return <div>Loading country details...</div>;
   if (error) return <div style={{ color: 'red' }}>Error: {error}</div>;
 
   return (
     <div className="details">
-      <button onClick={handleBack}>Go Back</button>
+      <button  className= "back-button " onClick={handleBack}>
+      <i className="fas fa-arrow-left"></i> {/* Arrow icon */}
+      </button>
       <CountryDetails country={country} />
     </div>
   );

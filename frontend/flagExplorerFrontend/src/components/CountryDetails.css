@@ -4,25 +4,31 @@
   align-items: center; 
   justify-content: center;
   height: 100vh; 
-  width: 75%;
+  width: 100%;
   margin: 0 auto;
-  padding: 50px; 
+  padding: 20px; 
+  position: relative; 
+  margin-top: -50px;
 }
 
 
 .details {
   width:100%;
   height:auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .country-details {
   cursor: default; 
   border: 1px solid #ddd;
-  padding: 25px; 
-  border-radius: 12px; 
+  padding: 40px; 
+  border-radius: 16px; 
   text-align: center;
-  max-width: 75%; 
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
+  width: 60%;
+  max-width: 800px; 
+  box-shadow: 0 6px 82px rgba(0, 0, 0, 0.3); 
   background-color: #f0f0f0;
   transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.03s ease;
   opacity: 1; 
@@ -31,27 +37,69 @@
  
  .dflag {
   width: 100%; 
-  height: 150px; 
+  height: auto; 
+  max-height: 250px;
   object-fit: contain; 
   border-radius: 8px; 
   margin-bottom: 15px; 
   margin-top: 15px;
 }
  
+.details-heading{
+  color: #fff;
+  font-family: "Spicy Rice", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 5rem;
+}
   
-  .country-details h2{
-    font-size: 2rem;
+  .heading-country-details {
+   
     margin: 15px 0;
     color: #333;
     transform: color 0.3s ease;
+    font-family: "Spicy Rice", serif;
+    font-weight: 600;
+    font-size: 3.5rem;
   }
 
   .country-details p{
     margin-bottom: 10px;
-    font-size: 1rem;
-    color :#555;
+    font-size: 1.5rem;
+    color :#000000;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+
   }
 
   .country-details strong{
     color: #333;
+  }
+  .back-button {
+    background-color: #007bff; 
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: fixed;
+    top: 20px;  
+    left: 20px; 
+    z-index: 999; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .back-button:hover {
+    background-color: #0056b3; 
+    transform: scale(1.05);
+  }
+  
+  .back-button:active {
+    background-color: #00408a; 
+    transform: scale(0.98);
   }
