@@ -1,10 +1,10 @@
-.country-grid{
+.country-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content:center ;
+  justify-content: center;
   gap: 20px;
-
 }
+
 .country-card {
   cursor: pointer;
   border: 1px solid #ddd;
@@ -17,43 +17,46 @@
   overflow: hidden;
   margin: 10px;
   position: relative;
-  transform: translateY(20px); 
-  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.03s ease;
+  transform: translateY(20px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
   opacity: 0;
   animation: slideIn 0.5s forwards;
- 
 }
 
 .country-card:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .flag {
   width: 100%;
-  max-width: 200px;
-  height: 150px;
+  height: 80%;
+  object-fit: cover;
+  border-radius: 8px;
   transition: transform 0.3s ease;
 }
 
-select{
+.country-card:hover .flag {
+  transform: scale(1.1);
+}
+
+select {
   padding: 10px 25px;
-  background: hsl(209, 23%,22%);
+  background: hsl(209, 23%, 22%);
   margin-bottom: 50px;
   border: none;
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
 }
-  
-  
-  @keyframes slideIn{
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
