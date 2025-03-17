@@ -14,8 +14,8 @@ public class RestCountriesService {
     private final WebClient webClient;
     private final ObjectMapper objectMapper;
 
-    public RestCountriesService(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
-        this.webClient = webClientBuilder.baseUrl("https://restcountries.com/v3.1/all").codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(10 * 1024 * 1024)).build();
+    public RestCountriesService(WebClient webClient, ObjectMapper objectMapper) {
+        this.webClient = webClient;
         this.objectMapper = objectMapper;
 
     }

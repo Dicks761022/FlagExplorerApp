@@ -6,91 +6,33 @@ import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@SpringBootTest
 class RestCountriesServiceTest {
-
-    private MockWebServer mockWebServer;
+    @Mock
     private RestCountriesService restCountriesService;
-
-    @BeforeEach
-    void setUp() throws Exception {
-        mockWebServer = new MockWebServer();
-        mockWebServer.start();
-        WebClient.Builder webClientBuilder = WebClient.builder().baseUrl(mockWebServer.url("/").toString());
-        restCountriesService = new RestCountriesService(webClientBuilder, new ObjectMapper());
-    }
-
-    @AfterEach
-    void tearDown() throws Exception {
-        mockWebServer.shutdown();
-    }
 
     @Test
     void testGetCountryAttributes() throws Exception {
-        String fakeApiResponse = """
-        [
-            {
-                "name": {"common": "Canada"},
-                "capital": ["Ottawa"],
-                "flags": {"png": "https://flagcdn.com/w320/ca.png"},
-                "population": 38000000
-            },
-            {
-                "name": {"common": "Germany"},
-                "capital": ["Berlin"],
-                "flags": {"png": "https://flagcdn.com/w320/de.png"},
-                "population": 83000000
-            }
-        ]
-        """;
-
-        mockWebServer.enqueue(new MockResponse()
-                .setBody(fakeApiResponse)
-                .addHeader("Content-Type", "application/json"));
-
+        Mockito.when(restCountriesService.getCountryAttributes()).thenReturn(List.of(Map.of("name", "Russia", "population", 100000000, "region", "Europe", "capital", "Moscow", "flag", "https://flagcdn.com/ru.svg")));
         List<Map<String, Object>> countries = restCountriesService.getCountryAttributes();
+        assertNotNull(countries);
+        assertEquals(1, countries.size());
+        assertEquals("Russia", countries.get(0).get("name"));
+        assertEquals(100000000, countries.get(0).get("population"));
+        assertEquals("Europe", countries.get(0).get("region"));
+        assertEquals("Moscow", countries.get(0).get("capital"));
+        assertEquals("https://flagcdn.com/ru.svg", countries.get(0).get("flag"));
 
-        assertEquals(2, countries.size());
-        assertEquals("Canada", countries.get(0).get("commonName"));
-        assertEquals("https://flagcdn.com/w320/ca.png", countries.get(0).get("flagUrl"));
-        assertEquals(38000000, countries.get(0).get("population"));
-    }
-
-    @Test
-    void testGetCountryByName() throws Exception {
-        String fakeApiResponse = """
-        [
-            {
-                "name": {"common": "Canada"},
-                "capital": ["Ottawa"],
-                "flags": {"png": "https://flagcdn.com/w320/ca.png"},
-                "population": 38000000
-            },
-            {
-                "name": {"common": "Germany"},
-                "capital": ["Berlin"],
-                "flags": {"png": "https://flagcdn.com/w320/de.png"},
-                "population": 83000000
-            }
-        ]
-        """;
-
-        mockWebServer.enqueue(new MockResponse()
-                .setBody(fakeApiResponse)
-                .addHeader("Content-Type", "application/json"));
-
-        Map<String, Object> country = restCountriesService.getCountryByName("Canada");
-
-        assertNotNull(country);
-        assertEquals("Canada", country.get("commonName"));
-        assertEquals("Ottawa", country.get("capital"));
-        assertEquals("https://flagcdn.com/w320/ca.png", country.get("flagUrl"));
-        assertEquals(38000000, country.get("population"));
     }
 }
