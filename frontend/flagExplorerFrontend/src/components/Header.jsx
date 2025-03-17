@@ -18,7 +18,8 @@ function Header({ setSearchFlag, setSelectedRegion }) {
       </div>
     </div>
 
-    
+    <div className='map'></div>
+
     </div>
     </div>
   );

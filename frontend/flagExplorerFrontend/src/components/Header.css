@@ -33,7 +33,7 @@
 }
 
 .map{
-    width: 600px; /* Adjust size of the globe */
+    width: 600px;
     height: 600px;
     background-image: url('../assets/map.svg'); 
     background-size: cover;
