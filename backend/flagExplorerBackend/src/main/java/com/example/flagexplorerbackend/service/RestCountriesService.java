@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -43,6 +44,18 @@ public class RestCountriesService {
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse JSON response", e);
         }
+    }
+
+    public Map<String, Object> getCountryByName(String name) {
+        List<Map<String, Object>> countries = getCountryAttributes();
+
+        // Filter and find the country by its "commonName", then return if found
+        return countries.stream()
+                .filter(country -> name.equals(country.get("commonName"))) // Match by "commonName"
+                .findFirst()
+                .orElse(new HashMap<>());
+
+
     }
 
     private String getFirstElementOrDefault(List<?> list, String defaultValue) {

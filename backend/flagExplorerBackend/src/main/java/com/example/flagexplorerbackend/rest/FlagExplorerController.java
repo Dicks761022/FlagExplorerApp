@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 public class FlagExplorerController {
@@ -24,33 +25,48 @@ public class FlagExplorerController {
 
     @GetMapping("/countries")
     public ResponseEntity<List<Country>> countriesGet() {
-        List<Map<String, Object>> list = restCountriesService.getCountryAttributes();
-
-        List<Country> listOfCountries = new ArrayList<>();
-
-        for (Map<String, Object> country : list) {
-            Country c = new Country();
-            c.setName(country.get("commonName").toString());
-            c.setFlag(country.get("flagUrl").toString());
-            listOfCountries.add(c);
-        }
+        List<Country> listOfCountries = restCountriesService.getCountryAttributes()
+                .stream()
+                .map(this::mapToCountry)
+                .collect(Collectors.toList());
 
         return ResponseEntity.ok(listOfCountries);
+
     }
 
     @GetMapping("/countries/{name}")
     public ResponseEntity<CountryDetails> countriesNameGet(@PathVariable String name) {
-        List<Map<String, Object>> list = restCountriesService.getCountryAttributes();
+        // Get the country attributes for the given name from the service.
+        Map<String, Object> countryAttributes = restCountriesService.getCountryByName(name);
 
-        CountryDetails countryDetails = new CountryDetails();
+        // If no country data is found, return a 404 response.
+        if (countryAttributes == null || countryAttributes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
 
-        list.stream().filter(country -> country.get("commonName").equals(name)).findFirst().ifPresent(country -> {
-            countryDetails.setName((String) country.get("commonName"));
-            countryDetails.setFlag((String) country.get("flagUrl"));
-            countryDetails.setCapital((String) country.get("capital"));
-            countryDetails.setPopulation((Integer) country.get("population"));
-        });
+        // Map the country attributes to a CountryDetails object.
+        CountryDetails countryDetails = mapToCountryDetails(countryAttributes);
 
+        // Return the CountryDetails object wrapped in a ResponseEntity.
         return ResponseEntity.ok(countryDetails);
+
     }
+
+    private Country mapToCountry(Map<String, Object> countryAttributes) {
+        Country country = new Country();
+        country.setName((String) countryAttributes.getOrDefault("commonName", "Unknown")); // Default to "Unknown" if missing
+        country.setFlag((String) countryAttributes.getOrDefault("flagUrl", ""));       // Default to empty string if missing
+        return country;
+    }
+
+    private CountryDetails mapToCountryDetails(Map<String, Object> countryAttributes) {
+        CountryDetails countryDetails = new CountryDetails();
+        countryDetails.setName((String) countryAttributes.getOrDefault("commonName", "Unknown"));
+        countryDetails.setFlag((String) countryAttributes.getOrDefault("flagUrl", ""));
+        countryDetails.setCapital((String) countryAttributes.getOrDefault("capital", "N/A"));
+        countryDetails.setPopulation((Integer) countryAttributes.getOrDefault("population", 0));
+        return countryDetails;
+    }
+
+
 }
