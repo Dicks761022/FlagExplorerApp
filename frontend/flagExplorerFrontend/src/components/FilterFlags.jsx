@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function FilterFlags({ onSelect }) {
   const regions = [
@@ -14,12 +15,12 @@ function FilterFlags({ onSelect }) {
   // Update selectHandler to handle regions
   const selectHandler = (e) => {
     const regionName = e.target.value;
-    onSelect(regionName);
+    onSelect(regionName); // Passing selected region to the parent
   };
 
   return (
     <select onChange={selectHandler}>
-      <option value="all">Filter by region</option>
+      <option value="all">Filter by region</option> {/* Default value */}
       {regions.map((region) => (
         <option key={region.id} value={region.name}>
           {region.name}
@@ -28,5 +29,10 @@ function FilterFlags({ onSelect }) {
     </select>
   );
 }
+
+// Prop validation
+FilterFlags.propTypes = {
+  onSelect: PropTypes.func.isRequired,
+};
 
 export default FilterFlags;

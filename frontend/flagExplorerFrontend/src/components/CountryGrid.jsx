@@ -7,7 +7,7 @@ function CountryGrid({ countries, onCountryClick }) {
     <div className="country-grid">
       {countries.map((country, index) => (
         <div 
-        key={country.cca3} 
+        key={country.name} 
         onClick={() => onCountryClick(country)}>
           <CountryCard 
             country={country}

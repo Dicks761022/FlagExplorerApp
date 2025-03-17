@@ -1,45 +1,53 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import CountryGrid from '../components/CountryGrid';
+import Header from '../components/Header';
 
-const API_URL = "https://restcountries.com/v3.1/all";
+const API_URL = "http://localhost:8080/countries";
 
-function Home({ countries, onCountryClick }) {
+function Home() {
+  const [countries, setCountries] = useState([]); // Store all countries
+  const [filteredCountries, setFilteredCountries] = useState([]); // Store filtered countries
   const [searchFlag, setSearchFlag] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('all');
-  const [filteredCountries, setFilteredCountries] = useState(countries); // New state for filtered countries
+  const navigate = useNavigate(); // React Router's navigate function
 
+  // Fetch all countries on mount
   useEffect(() => {
-    filterCountries(); // Apply filtering on component mount and whenever the filter or search changes
+    fetch(API_URL)
+      .then(response => response.json())
+      .then(data => {
+        setCountries(data);
+        setFilteredCountries(data); // Initialize filteredCountries with all data
+      })
+      .catch(error => console.error("Error fetching countries:", error));
+  }, []);
+
+  // Filter countries dynamically when search or region changes
+  useEffect(() => {
+    if (!countries.length) return;
+
+    const updatedCountries = countries.filter(country => {
+      const matchesSearch = country.name.toLowerCase().includes(searchFlag.toLowerCase());
+      const matchesRegion = selectedRegion === 'all' || country.region.toLowerCase() === selectedRegion.toLowerCase();
+      return matchesSearch && matchesRegion;
+    });
+
+    setFilteredCountries(updatedCountries);
   }, [searchFlag, selectedRegion, countries]);
 
-  // Function to filter countries based on search and region
-  const filterCountries = () => {
-    const updatedCountries = countries?.filter(country => {
-      const matchesSearch = country.name.common.toLowerCase().includes(searchFlag.toLowerCase());
-      const matchesRegion = selectedRegion === 'all' || country.region === selectedRegion;
-      return matchesSearch && matchesRegion;
-    }) || [];
-    setFilteredCountries(updatedCountries); // Update the filtered countries state
-  };
-
-  const getCountryByRegion = async (regionName) => {
-    try {
-      const response = await fetch(`${API_URL}/region/${regionName}`);
-      if (!response.ok) throw new Error("Failed to fetch countries by region");
-      const data = await response.json();
-      setFilteredCountries(data); // Set the filtered countries based on region
-    } catch (error) {
-      console.error(error);
-    }
+  // Handle country click (navigate to details)
+  const handleCountryClick = (country) => {
+    navigate(`/country/${encodeURIComponent(country.name)}`);
   };
 
   return (
     <div className="home">
-      {/* Header component containing the text, search bar, and filter */}
+      {/* Header component with search bar and filter */}
       <Header setSearchFlag={setSearchFlag} setSelectedRegion={setSelectedRegion} />
       
-      {/* Pass filtered countries to CountryGrid */}
-      <CountryGrid countries={filteredCountries} onCountryClick={onCountryClick} />
+      {/* Display filtered countries */}
+      <CountryGrid countries={filteredCountries} onCountryClick={handleCountryClick} />
     </div>
   );
 }

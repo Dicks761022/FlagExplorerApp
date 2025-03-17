@@ -2,51 +2,52 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Home from './pages/Home';
 import Details from './pages/Details';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-const API_URL = "https://restcountries.com/v3.1/all";
+const API_URL = "http://localhost:8080/countries";
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null); // State for selected country
-  const [loading, setLoading] = useState(true); // State to handle loading
-  const [error, setError] = useState(null); // State to handle any errors
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchCountries();
   }, []);
 
-  // Fetch countries data from the API
   const fetchCountries = async () => {
     try {
       const response = await fetch(API_URL);
       if (!response.ok) throw new Error("Failed to fetch countries");
       const data = await response.json();
-      setCountries(data); // Store fetched countries in state
-      setLoading(false); // Update loading state
+      setCountries(data);
+      setLoading(false);
     } catch (error) {
-      setError(error.message); // Handle fetch error
-      setLoading(false); // Stop loading in case of error
+      setError(error.message);
+      setLoading(false);
     }
   };
 
-  // Handle country selection
-  const handleCountryClick = (country) => {
-    setSelectedCountry(country); // Set the selected country
-  };
-
   return (
-    <div className="app">
-      {/* Show loading, error, or the content */}
-      {loading && <p>Loading countries...</p>}
-      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+    <Router>
+      <div className="app">
+        {loading && <p>Loading countries...</p>}
+        {error && <p style={{ color: 'red' }}>Error: {error}</p>}
 
-      {/* Render Home if no country is selected, otherwise render Details */}
-      {!selectedCountry ? (
-        <Home countries={countries} onCountryClick={handleCountryClick} />
-      ) : (
-        <Details country={selectedCountry} />
-      )}
-    </div>
+        <Routes>
+          {/* Home route to display country grid */}
+          <Route
+            path="/"
+            element={<Home countries={countries} />}
+          />
+          {/* Details route to show details of a specific country */}
+          <Route
+            path="/country/:name"
+            element={<Details />}
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

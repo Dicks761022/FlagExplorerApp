@@ -10,10 +10,12 @@ if (!country) return <div>No country data available</div>;
     
 <div className="country-details-container">
     <div className="country-details">
-    <img src={country.flag} alt={country.name} className='dflag'/>
       <h2>{country.name}</h2>
-      <p><strong>Capital:</strong> {country.capital }</p>
       <p><strong>Population:</strong> {country.population.toLocaleString()}</p>
+      <p><strong>Capital:</strong> {country.capital }</p>
+    
+      <img src={country.flag} alt={country.name} className='dflag'/>
+
     </div>
    </div>
   );
