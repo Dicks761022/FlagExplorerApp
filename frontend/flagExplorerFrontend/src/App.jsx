@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Details from './pages/Details';
 
@@ -12,7 +11,6 @@ function App() {
   const [loading, setLoading] = useState(true); // State to handle loading
   const [error, setError] = useState(null); // State to handle any errors
 
-  const navigate = useNavigate(); // hook to navigate between pages
   useEffect(() => {
     fetchCountries();
   }, []);

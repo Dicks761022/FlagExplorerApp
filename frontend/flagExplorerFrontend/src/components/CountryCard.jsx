@@ -4,8 +4,8 @@ function CountryCard({ country, onClick, style }) {
   return (
     <div className="country-card" style={style} onClick={onClick}>
       <img 
-        src={country.flags.svg} 
-        alt={`Flag of ${country.name.common}`} 
+        src={country.flag} 
+        alt={`Flag of ${country.name}`} 
         className="flag" 
       />
     </div>

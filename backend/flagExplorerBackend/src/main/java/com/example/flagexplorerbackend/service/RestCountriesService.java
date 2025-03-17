@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +33,9 @@ public class RestCountriesService {
                     .map(country -> Map.of(
                             "commonName", ((Map<?, ?>) country.get("name")).get("common"),
                             "capital", getFirstElementOrDefault((List<?>) country.get("capital"), "Unknown"),
-                            "flagUrl", ((Map<?, ?>) country.get("flags")).get("png"),
-                            "population", country.getOrDefault("population", 0)
+                            "flagUrl", ((Map<?, ?>) country.get("flags")).get("svg"),
+                            "population", country.getOrDefault("population", 0),
+                            "region", country.getOrDefault("region", "Unknown")
 
 
                     ))

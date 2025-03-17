@@ -1,19 +1,18 @@
 package com.example.flagexplorerbackend.rest;
 
-import com.baeldung.openapi.api.CountriesApiDelegate;
 import com.baeldung.openapi.model.Country;
 import com.baeldung.openapi.model.CountryDetails;
 import com.example.flagexplorerbackend.service.RestCountriesService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class FlagExplorerController {
 
@@ -56,6 +55,10 @@ public class FlagExplorerController {
         Country country = new Country();
         country.setName((String) countryAttributes.getOrDefault("commonName", "Unknown")); // Default to "Unknown" if missing
         country.setFlag((String) countryAttributes.getOrDefault("flagUrl", ""));       // Default to empty string if missing
+        country.setCapital((String) countryAttributes.getOrDefault("capital", "Unknown"));
+        country.setRegion((String) countryAttributes.getOrDefault("region", "Unknown"));
+        country.setPopulation((Integer) countryAttributes.getOrDefault("population", 0));
+
         return country;
     }
 

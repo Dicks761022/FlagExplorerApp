@@ -4,9 +4,14 @@
 
   justify-content: center;
   height: 100vh; 
-  width: 100%;
+  width: 75%;
   padding: 200px; 
 
+}
+
+.details {
+  width:100%;
+  height:auto;
 }
 
 .country-details {
@@ -15,7 +20,7 @@
   padding: 25px; 
   border-radius: 12px; 
   text-align: center;
-  max-width: 100%; /* Allow card to adapt to container's width */
+  max-width: 75%; /* Allow card to adapt to container's width */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow for focus */
   background-color: #f0f0f0;
   transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.03s ease;
@@ -24,8 +29,7 @@
 }
   /* Flag styling inside the card */
  .flag {
-  width: 100%; /* Flag should take full width of the card */
-  max-width: 250px; /* Max-width for flag */
+  width: 100%; /* Flag should take full width of the card */ 
   height: 150px; /* Set flag height */
   object-fit: cover; /* Make flag fit the container */
   border-radius: 8px; /* Round the corners of the flag */

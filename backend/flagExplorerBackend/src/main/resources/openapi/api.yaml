@@ -40,6 +40,12 @@ components:
           type: string
         flag:
           type: string
+        population:
+          type: integer
+        capital:
+          type: string
+        region:
+          type: string
     CountryDetails:
       type: object
       properties:

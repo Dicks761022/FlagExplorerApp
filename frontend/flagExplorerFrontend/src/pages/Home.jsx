@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import CountryGrid from '../components/CountryGrid';
-import Header from '../components/Header';
 
 const API_URL = "https://restcountries.com/v3.1/all";
 
