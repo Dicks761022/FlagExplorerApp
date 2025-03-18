@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
 
       - name: Set Up Node.js (Frontend)
         uses: actions/setup-node@v3
@@ -55,6 +55,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Set Up Java (Backend)
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Set Up Node.js (Frontend)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
       - name: Build Backend (Java Spring Boot)
         run: |
           cd backend/flagExplorerBackend
@@ -63,4 +74,5 @@ jobs:
       - name: Build Frontend (React)
         run: |
           cd frontend/flagExplorerFrontend
+          npm install
           npm run build
