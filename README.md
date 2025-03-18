@@ -105,6 +105,3 @@ jobs:
 - Go to the url provided ()
 
 ****
-
-## Usage
-Go to **insert url** and click on a country you would like to know more about
