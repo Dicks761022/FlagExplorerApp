@@ -3,18 +3,25 @@ import App from '../App'; // Path to App component
 import { MemoryRouter } from 'react-router-dom';
 
 describe('App Component Integration Test', () => {
-  test('should display countries and navigate to country details on click', async () => {
-    const mockCountries = [
-      { name: 'Australia', population: 25000000, capital: 'Canberra', flag: 'australia_flag_url' },
-      { name: 'Brazil', population: 210000000, capital: 'Brasília', flag: 'brazil_flag_url' },
-    ];
+  let mockFetch;
 
-    global.fetch = jest.fn(() =>
+  beforeEach(() => {
+    mockFetch = jest.fn(() =>
       Promise.resolve({
-        json: () => Promise.resolve(mockCountries),
+        json: () => Promise.resolve([
+          { name: 'Australia', population: 25000000, capital: 'Canberra', flag: 'australia_flag_url' },
+          { name: 'Brazil', population: 210000000, capital: 'Brasília', flag: 'brazil_flag_url' },
+        ]),
       })
     );
+    global.fetch = mockFetch;
+  });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('should display countries and navigate to country details on click', async () => {
     render(
       <MemoryRouter initialEntries={['/']}>
         <App />
