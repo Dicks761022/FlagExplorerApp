@@ -28,22 +28,22 @@ jobs:
 
       - name: Install Backend Dependencies
         run: |
-          cd backend
+          cd backend/flagExplorerBackend
           mvn clean install
 
       - name: Run Backend Tests
         run: |
-          cd backend
+          cd backend/flagExplorerBackend
           mvn test
 
       - name: Install Frontend Dependencies
         run: |
-          cd frontend
+          cd frontend/flagExplorerFrontend
           npm install
 
       - name: Run Frontend Tests
         run: |
-          cd frontend
+          cd frontend/flagExplorerFrontend
           npm test
 
   build:
@@ -57,10 +57,10 @@ jobs:
 
       - name: Build Backend (Java Spring Boot)
         run: |
-          cd backend
+          cd backend/flagExplorerBackend
           mvn package
 
       - name: Build Frontend (React)
         run: |
-          cd frontend
+          cd frontend/flagExplorerFrontend
           npm run build
