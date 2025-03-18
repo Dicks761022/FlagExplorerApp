@@ -102,6 +102,6 @@ jobs:
 **Frontend**
 - npm install
 - npm run dev
-- Go to the url provided ()
+- Go to the url provided
 
 ****
