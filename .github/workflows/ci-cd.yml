@@ -61,6 +61,11 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
+      - name: Set Up Node.js (Frontend)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
       - name: Build Backend (Java Spring Boot)
         run: |
           cd backend/flagExplorerBackend
