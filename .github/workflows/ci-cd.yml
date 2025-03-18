@@ -74,4 +74,5 @@ jobs:
       - name: Build Frontend (React)
         run: |
           cd frontend/flagExplorerFrontend
+          npm install
           npm run build
