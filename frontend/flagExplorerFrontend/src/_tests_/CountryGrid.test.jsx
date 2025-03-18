@@ -1,34 +1,49 @@
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import CountryGrid from './CountryGrid';
+import { describe, it, expect, vi } from 'vitest';
+import CountryGrid from '../components/CountryGrid';
+import '@testing-library/jest-dom/vitest';
 
 describe('CountryGrid Component', () => {
   const mockCountries = [
-    { name: 'Canada', flag: 'https://flag.url', region: 'Americas' },
-    { name: 'Germany', flag: 'https://flag.url', region: 'Europe' },
+    { name: 'France', flag: 'https://flagcdn.com/fr.svg' },
+    { name: 'Germany', flag: 'https://flagcdn.com/de.svg' },
+    { name: 'Japan', flag: 'https://flagcdn.com/jp.svg' },
   ];
 
-  const mockOnCountryClick = jest.fn();
+  it('renders the correct number of country cards', () => {
+    render(<CountryGrid countries={mockCountries} onCountryClick={() => {}} />);
 
-  test('renders a list of countries', () => {
-    render(
-      <CountryGrid countries={mockCountries} onCountryClick={mockOnCountryClick} />
-    );
+    // Check if all country cards are rendered
+    const countryCards = screen.getAllByRole('img');
+    expect(countryCards).toHaveLength(mockCountries.length);
 
-    // Check if country names are rendered
-    expect(screen.getByText(/Canada/i)).toBeInTheDocument();
-    expect(screen.getByText(/Germany/i)).toBeInTheDocument();
+    // Check if each country's flag is displayed
+    mockCountries.forEach((country) => {
+      expect(screen.getByAltText(`Flag of ${country.name}`)).toBeInTheDocument();
+    });
   });
 
-  test('calls onCountryClick when a country is clicked', () => {
-    render(
-      <CountryGrid countries={mockCountries} onCountryClick={mockOnCountryClick} />
-    );
+  it('calls onCountryClick when a country is clicked', () => {
+    const mockOnCountryClick = vi.fn();
+    render(<CountryGrid countries={mockCountries} onCountryClick={mockOnCountryClick} />);
 
-    // Simulate a click on the Canada country card
-    fireEvent.click(screen.getByText(/Canada/i));
+    // Click on the first country's card (France)
+    const firstCountryCard = screen.getByAltText('Flag of France').parentElement;
+    fireEvent.click(firstCountryCard);
 
-    // Verify that the onCountryClick function is called with the correct country
+    // Verify that onCountryClick was called with France's data
     expect(mockOnCountryClick).toHaveBeenCalledWith(mockCountries[0]);
-    expect(mockOnCountryClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('applies animation delay styles correctly', () => {
+    render(<CountryGrid countries={mockCountries} onCountryClick={() => {}} />);
+
+    mockCountries.forEach((country, index) => {
+      const countryCard = screen.getByAltText(`Flag of ${country.name}`).parentElement;
+
+      // Check if the animation delay is correctly applied
+      expect(countryCard).toHaveStyle(`animation-delay: ${index * 0.1}s`);
+    });
   });
 });

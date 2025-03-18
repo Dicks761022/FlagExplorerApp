@@ -1,28 +1,44 @@
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import CountryCard from './CountryCard';
+import { describe, it, expect, vi } from 'vitest';
+import CountryCard from '../components/CountryCard';
+import '@testing-library/jest-dom/vitest';
 
 describe('CountryCard Component', () => {
-  const mockCountry = { name: 'Canada', flag: 'https://flag.url' };
-  const mockOnClick = jest.fn();
+  const mockCountry = {
+    name: 'France',
+    flag: 'https://flagcdn.com/fr.svg',
+  };
 
-  test('renders country flag and name', () => {
-    render(<CountryCard country={mockCountry} onClick={mockOnClick} />);
+  it('renders the country card with flag image', () => {
+    render(<CountryCard country={mockCountry} onClick={() => {}} />);
 
-    // Check if the flag image is rendered
-    const flagImg = screen.getByAltText(/Flag of Canada/i);
-    expect(flagImg).toBeInTheDocument();
-
-    // Check if the image has the correct src
-    expect(flagImg).toHaveAttribute('src', mockCountry.flag);
+    // Check if the flag image is rendered correctly
+    const flagImage = screen.getByAltText('Flag of France');
+    expect(flagImage).toBeInTheDocument();
+    expect(flagImage).toHaveAttribute('src', mockCountry.flag);
   });
 
-  test('calls onClick when the card is clicked', () => {
+  it('calls onClick when the country card is clicked', () => {
+    const mockOnClick = vi.fn(); // Mock function
     render(<CountryCard country={mockCountry} onClick={mockOnClick} />);
 
-    // Simulate a click on the country card
-    fireEvent.click(screen.getByAltText(/Flag of Canada/i));
+    const countryCard = screen.getByRole('img', { name: 'Flag of France' }).parentElement;
+
+    // Simulate a click event
+    fireEvent.click(countryCard);
 
     // Verify that the onClick function is called
     expect(mockOnClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('applies the passed style prop correctly', () => {
+    const testStyle = { backgroundColor: 'red' };
+    render(<CountryCard country={mockCountry} onClick={() => {}} style={testStyle} />);
+
+    const countryCard = screen.getByRole('img', { name: 'Flag of France' }).parentElement;
+
+    // Ensure the inline style is applied
+    expect(countryCard).toHaveStyle('background-color: red');
   });
 });

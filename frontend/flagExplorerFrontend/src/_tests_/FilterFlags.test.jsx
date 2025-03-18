@@ -1,8 +1,12 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import FilterFlags from './FilterFlags';
+import React from 'react';
+import { render,screen,fireEvent } from "@testing-library/react";
+import { describe, it, expect, vi } from 'vitest';
+import FilterFlags from "../components/FilterFlags"
+import "@testing-library/jest-dom/vitest";
 
 describe('FilterFlags Component', () => {
-  test('renders dropdown with region options', () => {
+ 
+  it('renders dropdown with region options', () => {
     render(<FilterFlags onSelect={() => {}} />);
 
     // Check if the default value is rendered correctly
@@ -16,8 +20,8 @@ describe('FilterFlags Component', () => {
     expect(screen.getByText('South America')).toBeInTheDocument();
   });
 
-  test('calls onSelect when a region is selected', () => {
-    const mockOnSelect = jest.fn();
+  it('calls onSelect when a region is selected', () => {
+    const mockOnSelect = vi.fn(); 
     render(<FilterFlags onSelect={mockOnSelect} />);
 
     // Select a region (e.g., Africa)
@@ -27,8 +31,8 @@ describe('FilterFlags Component', () => {
     expect(mockOnSelect).toHaveBeenCalledWith('Africa');
   });
 
-  test('calls onSelect with "all" when "Filter by region" is selected', () => {
-    const mockOnSelect = jest.fn();
+  it('calls onSelect with "all" when "Filter by region" is selected', () => {
+    const mockOnSelect = vi.fn();
     render(<FilterFlags onSelect={mockOnSelect} />);
 
     // Select the "Filter by region" option (default option)

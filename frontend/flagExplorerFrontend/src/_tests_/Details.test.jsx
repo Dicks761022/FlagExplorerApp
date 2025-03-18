@@ -1,35 +1,91 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import React from 'react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi,beforeEach } from 'vitest';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import CountryGrid from '../components/CountryGrid';  // Path to CountryGrid component
-import CountryDetails from '../components/CountryDetails';  // Path to CountryDetails component
+import Details from '../pages/Details';
 
-describe('CountryCard Integration Test', () => {
-  test('should navigate to CountryDetails on click', async () => {
-    const mockCountries = [
-      { name: 'Australia', population: 25000000, capital: 'Canberra', flag: 'australia_flag_url' },
-      { name: 'Brazil', population: 210000000, capital: 'Brasília', flag: 'brazil_flag_url' },
-    ];
+// Mock the useNavigate hook
+const mockNavigate = vi.fn();
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual = await importOriginal();
+  return { ...actual, useNavigate: () => mockNavigate };
+});
 
-    const handleCountryClick = jest.fn();
+// Mock fetch
+global.fetch = vi.fn();
+
+const mockCountry = {
+  name: 'France',
+  population: 67390000,
+  capital: 'Paris',
+  flag: 'https://flagcdn.com/fr.svg',
+};
+
+describe('Details Component', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('fetches and displays country details', async () => {
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: vi.fn().mockResolvedValue(mockCountry),
+    });
 
     render(
-      <MemoryRouter initialEntries={['/']}>
+      <MemoryRouter initialEntries={['/country/France']}>
         <Routes>
-          <Route path="/" element={<CountryGrid countries={mockCountries} onCountryClick={handleCountryClick} />} />
-          <Route
-            path="/country/:name"
-            element={<CountryDetails country={mockCountries[0]} />}
-          />
+          <Route path="/country/:name" element={<Details />} />
         </Routes>
       </MemoryRouter>
     );
 
-    // Simulate clicking on the first country card
-    fireEvent.click(screen.getByText('Australia'));
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
 
-    // Check if CountryDetails displays the correct information
-    expect(screen.getByText('Australia')).toBeInTheDocument();
-    expect(screen.getByText('Population: 25,000,000')).toBeInTheDocument();
-    expect(screen.getByText('Capital: Canberra')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('France')).toBeInTheDocument();
+      expect(screen.getByText('Population: 67,390,000')).toBeInTheDocument();
+      expect(screen.getByText('Capital: Paris')).toBeInTheDocument();
+      expect(screen.getByRole('img', { name: 'France' })).toBeInTheDocument();
+    });
+  });
+
+  it('shows an error message if the country is not found', async () => {
+    fetch.mockResolvedValueOnce({
+      ok: false,
+    });
+
+    render(
+      <MemoryRouter initialEntries={['/country/Unknown']}>
+        <Routes>
+          <Route path="/country/:name" element={<Details />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/error: country not found/i)).toBeInTheDocument();
+    });
+  });
+
+  it('navigates back when the back button is clicked', async () => {
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: vi.fn().mockResolvedValue(mockCountry),
+    });
+
+    render(
+      <MemoryRouter initialEntries={['/country/France']}>
+        <Routes>
+          <Route path="/country/:name" element={<Details />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    await waitFor(() => screen.getByText('France'));
+
+    fireEvent.click(screen.getByRole('button', { name: /back/i }));
+
+    expect(mockNavigate).toHaveBeenCalledWith(-1);
   });
 });

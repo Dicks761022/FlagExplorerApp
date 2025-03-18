@@ -6,21 +6,30 @@ import Header from '../components/Header';
 const API_URL = "http://localhost:8080/countries";
 
 function Home() {
-  const [countries, setCountries] = useState([]); // Store all countries
-  const [filteredCountries, setFilteredCountries] = useState([]); // Store filtered countries
+  const [countries, setCountries] = useState([]);
+  const [filteredCountries, setFilteredCountries] = useState([]);
   const [searchFlag, setSearchFlag] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('all');
-  const navigate = useNavigate(); // React Router's navigate function
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   // Fetch all countries on mount
   useEffect(() => {
     fetch(API_URL)
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to fetch countries');
+        return response.json();
+      })
       .then(data => {
         setCountries(data);
-        setFilteredCountries(data); // Initialize filteredCountries with all data
+        setFilteredCountries(data);
+        setLoading(false);
       })
-      .catch(error => console.error("Error fetching countries:", error));
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
   // Filter countries dynamically when search or region changes
@@ -45,9 +54,16 @@ function Home() {
     <div className="home">
       {/* Header component with search bar and filter */}
       <Header setSearchFlag={setSearchFlag} setSelectedRegion={setSelectedRegion} />
-      
-      {/* Display filtered countries */}
-      <CountryGrid countries={filteredCountries} onCountryClick={handleCountryClick} />
+
+      {/* Display errors if fetching fails */}
+      {error && <p className="error">Error: {error}</p>}
+
+      {/* Show loading state */}
+      {loading ? (
+        <p className="loading">Loading countries...</p>
+      ) : (
+        <CountryGrid countries={filteredCountries} onCountryClick={handleCountryClick} />
+      )}
     </div>
   );
 }

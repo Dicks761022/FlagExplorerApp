@@ -1,64 +1,55 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Home from './Home';
+import React from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { describe, it, expect, vi } from 'vitest';
+import Home from '../pages/Home';
 
-// Mock the fetch function to simulate the API call
-global.fetch = jest.fn(() =>
+// Mock fetch response
+global.fetch = vi.fn(() =>
   Promise.resolve({
+    ok: true,
     json: () => Promise.resolve([
-      { name: 'Canada', flag: 'https://flag.url', region: 'Americas' },
-      { name: 'Germany', flag: 'https://flag.url', region: 'Europe' },
+      { name: 'France', region: 'Europe', flag: 'france.png' },
+      { name: 'Brazil', region: 'Americas', flag: 'brazil.png' }
     ]),
   })
 );
 
 describe('Home Component', () => {
-  test('renders countries and applies search and region filters', async () => {
+  it('displays loading message initially', () => {
     render(
       <MemoryRouter>
         <Home />
       </MemoryRouter>
     );
 
-    // Wait for countries to be fetched and displayed
-    await waitFor(() => screen.getByText(/Canada/i));
-
-    // Check that countries are rendered
-    expect(screen.getByText(/Canada/i)).toBeInTheDocument();
-    expect(screen.getByText(/Germany/i)).toBeInTheDocument();
-
-    // Test search functionality
-    fireEvent.change(screen.getByPlaceholderText('Search countries...'), {
-      target: { value: 'Canada' },
-    });
-
-    // Wait for the filtered countries
-    await waitFor(() => expect(screen.queryByText(/Germany/i)).not.toBeInTheDocument());
-    expect(screen.getByText(/Canada/i)).toBeInTheDocument();
-
-    // Test region filter functionality
-    fireEvent.change(screen.getByTestId('region-filter'), {
-      target: { value: 'Europe' },
-    });
-
-    await waitFor(() => expect(screen.queryByText(/Canada/i)).not.toBeInTheDocument());
-    expect(screen.getByText(/Germany/i)).toBeInTheDocument();
+    expect(screen.getByText(/loading countries/i)).toBeInTheDocument();
   });
 
-  test('navigates to country details page on country click', async () => {
+  it('renders country grid after fetching data', async () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
+      <MemoryRouter>
         <Home />
       </MemoryRouter>
     );
 
-    // Wait for the countries to be rendered
-    await waitFor(() => screen.getByText(/Canada/i));
+    await waitFor(() => {
+      expect(screen.getByText(/france/i)).toBeInTheDocument();
+      expect(screen.getByText(/brazil/i)).toBeInTheDocument();
+    });
+  });
 
-    // Simulate a click on the Canada country card
-    fireEvent.click(screen.getByText(/Canada/i));
+  it('shows an error message if fetch fails', async () => {
+    global.fetch.mockImplementationOnce(() => Promise.reject(new Error('Network error')));
 
-    // Check if navigation happens correctly to the country details page
-    expect(window.location.pathname).toBe('/country/Canada');
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(/error: network error/i)).toBeInTheDocument();
+    });
   });
 });

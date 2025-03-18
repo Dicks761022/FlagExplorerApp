@@ -1,37 +1,44 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
-import CountryDetails from './CountryDetails';
+import { describe, it, expect } from 'vitest';
+import CountryDetails from '../components/CountryDetails';
+import '@testing-library/jest-dom/vitest';
 
 describe('CountryDetails Component', () => {
   const mockCountry = {
     name: 'Canada',
     population: 37742154,
     capital: 'Ottawa',
-    flag: 'https://flag.url'
+    flag: 'https://flagcdn.com/ca.svg',
   };
 
-  test('renders country details correctly', () => {
+  it('renders without errors when no country is provided', () => {
+    render(<CountryDetails country={null} />);
+    expect(screen.queryByText('Country Details')).not.toBeInTheDocument();
+  });
+
+  it('renders country details correctly', () => {
     render(<CountryDetails country={mockCountry} />);
 
-    // Check if the country name is rendered
+    // Check if heading is displayed
+    expect(screen.getByText('Country Details')).toBeInTheDocument();
+
+    // Verify country name
     expect(screen.getByText(mockCountry.name)).toBeInTheDocument();
 
-    // Check if the population is rendered and formatted with commas
+    // Verify population with formatted number
     expect(screen.getByText(`Population: ${mockCountry.population.toLocaleString()}`)).toBeInTheDocument();
 
-    // Check if the capital is rendered
+    // Verify capital
     expect(screen.getByText(`Capital: ${mockCountry.capital}`)).toBeInTheDocument();
+  });
 
-    // Check if the flag image is rendered
+  it('renders the flag image correctly', () => {
+    render(<CountryDetails country={mockCountry} />);
+
+    // Check if the flag image is displayed with correct attributes
     const flagImg = screen.getByAltText(mockCountry.name);
     expect(flagImg).toBeInTheDocument();
     expect(flagImg).toHaveAttribute('src', mockCountry.flag);
-  });
-
-  test('renders empty div when no country is passed', () => {
-    render(<CountryDetails country={null} />);
-
-    // The component should render an empty div if no country is passed
-    expect(screen.queryByText(/Country Details/i)).toBeNull();
-    expect(screen.container.firstChild).toBeEmptyDOMElement();
   });
 });
