@@ -55,6 +55,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Set Up Java (Backend)
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
       - name: Build Backend (Java Spring Boot)
         run: |
           cd backend/flagExplorerBackend
