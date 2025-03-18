@@ -34,17 +34,31 @@ function Details() {
   }, [name]);
 
   const handleBack = () => {
-    navigate(-1);
+    navigate(-1); // Navigate back in history
   };
 
-  if (error) return <div style={{ color: 'red' }}>Error: {error}</div>;
+  if (loading) {
+    return <div>Loading...</div>; // Show loading message
+  }
+
+  if (error) {
+    return <div style={{ color: 'red' }}>Error: {error}</div>; // Show error message
+  }
+
+  if (!country) {
+    return <div>No data found for this country.</div>; // Handle case if country data is missing
+  }
 
   return (
     <div className="details">
-      <button  className= "back-button " onClick={handleBack}>
-      <i className="fas fa-arrow-left"></i> {/* Arrow icon */}
+      <button
+        className="back-button"
+        onClick={handleBack}
+        aria-label="Back to Countries"
+      >
+        <i className="fas fa-arrow-left"></i> {/* Arrow icon */}
       </button>
-      <CountryDetails country={country} />
+      <CountryDetails country={country} /> {/* Display country details */}
     </div>
   );
 }

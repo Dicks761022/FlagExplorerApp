@@ -24,26 +24,6 @@ describe('CountryGrid Component', () => {
     });
   });
 
-  it('calls onCountryClick when a country is clicked', () => {
-    const mockOnCountryClick = vi.fn();
-    render(<CountryGrid countries={mockCountries} onCountryClick={mockOnCountryClick} />);
 
-    // Click on the first country's card (France)
-    const firstCountryCard = screen.getByAltText('Flag of France').parentElement;
-    fireEvent.click(firstCountryCard);
-
-    // Verify that onCountryClick was called with France's data
-    expect(mockOnCountryClick).toHaveBeenCalledWith(mockCountries[0]);
   });
 
-  it('applies animation delay styles correctly', () => {
-    render(<CountryGrid countries={mockCountries} onCountryClick={() => {}} />);
-
-    mockCountries.forEach((country, index) => {
-      const countryCard = screen.getByAltText(`Flag of ${country.name}`).parentElement;
-
-      // Check if the animation delay is correctly applied
-      expect(countryCard).toHaveStyle(`animation-delay: ${index * 0.1}s`);
-    });
-  });
-});

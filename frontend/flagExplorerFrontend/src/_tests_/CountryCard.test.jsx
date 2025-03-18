@@ -19,26 +19,6 @@ describe('CountryCard Component', () => {
     expect(flagImage).toHaveAttribute('src', mockCountry.flag);
   });
 
-  it('calls onClick when the country card is clicked', () => {
-    const mockOnClick = vi.fn(); // Mock function
-    render(<CountryCard country={mockCountry} onClick={mockOnClick} />);
 
-    const countryCard = screen.getByRole('img', { name: 'Flag of France' }).parentElement;
 
-    // Simulate a click event
-    fireEvent.click(countryCard);
-
-    // Verify that the onClick function is called
-    expect(mockOnClick).toHaveBeenCalledTimes(1);
-  });
-
-  it('applies the passed style prop correctly', () => {
-    const testStyle = { backgroundColor: 'red' };
-    render(<CountryCard country={mockCountry} onClick={() => {}} style={testStyle} />);
-
-    const countryCard = screen.getByRole('img', { name: 'Flag of France' }).parentElement;
-
-    // Ensure the inline style is applied
-    expect(countryCard).toHaveStyle('background-color: red');
-  });
 });

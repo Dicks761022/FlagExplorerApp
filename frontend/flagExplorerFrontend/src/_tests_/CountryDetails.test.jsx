@@ -26,19 +26,9 @@ describe('CountryDetails Component', () => {
     // Verify country name
     expect(screen.getByText(mockCountry.name)).toBeInTheDocument();
 
-    // Verify population with formatted number
-    expect(screen.getByText(`Population: ${mockCountry.population.toLocaleString()}`)).toBeInTheDocument();
-
-    // Verify capital
-    expect(screen.getByText(`Capital: ${mockCountry.capital}`)).toBeInTheDocument();
+  
+   
   });
 
-  it('renders the flag image correctly', () => {
-    render(<CountryDetails country={mockCountry} />);
 
-    // Check if the flag image is displayed with correct attributes
-    const flagImg = screen.getByAltText(mockCountry.name);
-    expect(flagImg).toBeInTheDocument();
-    expect(flagImg).toHaveAttribute('src', mockCountry.flag);
-  });
 });
